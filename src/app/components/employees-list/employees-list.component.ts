@@ -115,7 +115,13 @@ export class EmployeesListComponent implements OnInit {
   }
   employeeEditFunction() {
     this.employeesList[this.editEmpIndex].name = this.editEmployee.value.empName;
-    this.employeesList[this.editEmpIndex].image = this.imagePath;
+    if(this.imagePath){
+      console.log(this.imagePath);
+      this.employeesList[this.editEmpIndex].image = this.imagePath;
+    }
+    else{
+      this.employeesList[this.editEmpIndex].image = this.employeesList[this.editEmpIndex].image;
+    }
     this.employeesList[this.editEmpIndex].birthdate = this.editEmployee.value.empBirthDate;
     this.employeesList[this.editEmpIndex].gender = this.editEmployee.value.empGender;
     this.employeesList[this.editEmpIndex].education = this.editEmployee.value.empEducation;
