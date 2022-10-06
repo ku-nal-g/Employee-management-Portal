@@ -1,0 +1,324 @@
+<div class="container-fluid">
+  <!--Header-->
+  <div class="row">
+    <div class="col-md-8 p-2 text-end" style="background-color: black;">
+      <span class="header-text" style="color: white;">Employee Management Portal</span>
+    </div>
+    <div class="col-md-4 p-3 text-end" style="background-color: black;">
+      <small>{{adminEmail}}
+        <a class="ms-2" style="color: white; text-decoration: none; cursor: poiner;" title="logout" (click)="logOut()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+            <path fill-rule="evenodd"
+              d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+          </svg>
+        </a>
+      </small>
+    </div>
+  </div>
+
+  <!-- spinner-->
+  <ngx-spinner type="ball-scale-multiple">
+    <p style="color: white; font-size: 1rem; padding: 14px;">Loading Awesomeness!!!...</p>
+  </ngx-spinner>
+
+  <!--Add Button-->
+  <div class="container-fluid p-5">
+    <div class="row">
+      <div class="col-md-6">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#addEmployeeModal"
+          class="btn btn-outline-success mb-2">Add Employee</button>
+      </div>
+      <div class="col-md-6">
+        <input type="text" (keyup)="applyFilter($event)" class="form-control" placeholder="Search Employees">
+      </div>
+    </div>
+  </div>
+
+  <!-- Employees List-->
+  <div *ngFor="let data of employeesList | filter:searchText; let i = index" class="container-fluid card-div p-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            <img class="img-fluid" [src]="data.image">
+          </div>
+          <div class="col-md-9 p-2">
+            <div class="row">
+              <div class="col-md-8 text-center">
+                <span class="emp-name">{{data.name}}</span>
+              </div>
+              <div class="col-md-4 mt-2 text-end">
+                <!--edit button-->
+                <button title="Edit" (click)="fillEditFormGroup(data.name)" type="button" data-bs-toggle="modal"
+                  data-bs-target="#editEmployeeModal" class="btn btn-outline-success">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                  </svg>
+                </button>
+                <!-- delete button-->
+                <button title="Delete" type="button" (click)="getDeleteEmpName(data.name)" data-bs-toggle="modal"
+                  data-bs-target="#deleteEmployeeModal" class="btn btn-outline-danger">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="col-md-6 text-center">
+                <table>
+                  <thead>
+                    <td colspan="2">Personal Details</td>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>BirthDate</td>
+                      <td>{{data.birthdate}}</td>
+                    </tr>
+                    <tr>
+                      <td>Gender</td>
+                      <td>{{data.gender}}</td>
+                    </tr>
+                    <tr>
+                      <td>Education</td>
+                      <td>{{data.education |titlecase}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 text-center">
+                <table>
+                  <thead>
+                    <td colspan="2">Job Details</td>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Company</td>
+                      <td>{{data.company}}</td>
+                    </tr>
+                    <tr>
+                      <td>Experience</td>
+                      <td>{{data.experience}}YR</td>
+                    </tr>
+                    <tr>
+                      <td>Salary</td>
+                      <td>{{data.Salary}}LPA</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add employee Modal-->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Employee Information</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" [formGroup]="insertEmployee">
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" formControlName="name" placeholder="Name" class="form-control">
+          </div>
+        </div>
+        <div class="form-div">
+          <form>
+            <fieldset>
+              <legend class="mt-2">Personal Information</legend>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <label for="exampleFormControlInput1" class="form-label">BirthDate</label>
+                  <input type="date" [max]="changeDateForm()" formControlName="birthDate" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <div class="label-div">
+                    <label for="exampleFormControlInput1" class="form-label">Gender</label>
+                  </div>
+                  <div class="form-check form-check-inline pt-2">
+                    <input class="form-check-input" type="radio" formControlName="gender" id="inlineRadio1"
+                      value="Male">
+                    <label class="form-check-label" for="inlineRadio1">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" formControlName="gender" id="inlineRadio2"
+                      value="Female">
+                    <label class="form-check-label" for="inlineRadio2">Female</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <select class="form-select" formControlName="education" aria-label="Default select example">
+                    <option value="1">Select Education</option>
+                    <option value="Post Graduate">Post Graduate</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Diploma">Diploma</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+            <div class="row mt-3">
+              <div class="input-group">
+                <input type="file" (change)="selectFile($event)" class="form-control" id="inputGroupFile04"
+                  formControlName="image" aria-label="Upload">
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
+              </div>
+            </div>
+
+            <fieldset>
+              <legend class="mt-2">Job Information</legend>
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <label for="exampleFormControlInput1" class="form-label">Company</label>
+                  <input type="text" formControlName="company" class="form-control">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="exampleFormControlInput1" class="form-label">Experience</label>
+                  <input type="text" formControlName="experience" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label for="exampleFormControlInput1" class="form-label">Salary</label>
+                  <input type="text" formControlName="salary" class="form-control">
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="addEmployee()" data-bs-dismiss="modal">Insert</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Employee Modal -->
+<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Employee</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete <span style="font-style: italic; font-weight: 600;">{{deleteEmpName}}</span>.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+        <button type="button" data-bs-dismiss="modal" (click)="deleteEmployee()" class="btn btn-success">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Edit employee Modal-->
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Employee Information</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" [formGroup]="editEmployee">
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" placeholder="Name" formControlName="empName" class="form-control">
+          </div>
+        </div>
+        <div class="form-div">
+          <form>
+            <fieldset>
+              <legend class="mt-2">Personal Information</legend>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <label for="exampleFormControlInput1" class="form-label">BirthDate</label>
+                  <input type="date" formControlName="empBirthDate" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <div class="label-div">
+                    <label for="exampleFormControlInput1" class="form-label">Gender</label>
+                  </div>
+                  <div class="form-check form-check-inline pt-2">
+                    <input class="form-check-input" formControlName="empGender" type="radio" id="inlineRadio1"
+                      value="Male">
+                    <label class="form-check-label" for="inlineRadio1">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" formControlName="empGender" type="radio" id="inlineRadio2"
+                      value="Female">
+                    <label class="form-check-label" for="inlineRadio2">Female</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <select class="form-select" formControlName="empEducation" aria-label="Default select example">
+                    <option selected>Select Education</option>
+                    <option value="Post Graduate">Post Graduate</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Diploma">Diploma</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+            <div class="row mt-3">
+              <div class="input-group">
+                <input type="file" (change)="selectFile($event)" class="form-control" formControlName="empImage"
+                  id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
+              </div>
+            </div>
+
+            <fieldset>
+              <legend class="mt-2">Job Information</legend>
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <label for="exampleFormControlInput1" class="form-label">Company</label>
+                  <input type="text" formControlName="empCompany" class="form-control">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="exampleFormControlInput1" class="form-label">Experience</label>
+                  <input type="text" formControlName="empExperience" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label for="exampleFormControlInput1" class="form-label">Salary</label>
+                  <input type="text" formControlName="empSalary" class="form-control">
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" (click)="employeeEditFunction()" class="btn btn-success"
+          data-bs-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

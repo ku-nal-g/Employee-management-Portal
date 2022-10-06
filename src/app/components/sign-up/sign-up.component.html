@@ -1,0 +1,83 @@
+<div class="container-fluid parent-div" style="background-image: url('assets/login-back.jpg');">
+  <div class="row">
+    <div class="col-md-12 p-2 text-center" style="background-color: black;">
+      <p style="color: white;">Employee Management Portal</p>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-12 p-3 d-flex justify-content-center">
+      <div class="form-div p-5">
+        <div class="row mb-3">
+          <div class="col-md-12 text-center">
+            <h3>Create a New Account</h3>
+            <div style="border-top: 3px solid rgb(20,18,40); width: 12%; margin-left: 44%;"></div>
+          </div>
+        </div>
+        <form [formGroup]="signUpForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="mb-2" for="exampleInputEmail1">First Name</label>
+                <input type="text" class="form-control" formControlName="fname" placeholder="Enter Firstname">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label class="mb-2" for="exampleInputEmail1">Last Name</label>
+                <input type="text" class="form-control" formControlName="lname" placeholder="Enter Lastname">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group mb-3">
+                <label class="mb-2" for="exampleInputPassword1">Mobile or email address</label>
+                <input type="text" class="form-control" formControlName="mobileEmail">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group mb-3">
+                <label class="mb-2" for="exampleInputPassword1">D.O.B</label>
+                <input type="date" class="form-control" formControlName="dob">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="label-div">
+                <label for="exampleFormControlInput1" class="form-label">Gender</label>
+              </div>
+              <div class="form-check form-check-inline pt-2">
+                <input class="form-check-input" formControlName="gender" type="radio" id="inlineRadio1"
+                  value="Male">
+                <label class="form-check-label" for="inlineRadio1">Male</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" formControlName="gender" type="radio" id="inlineRadio2"
+                  value="Female">
+                <label class="form-check-label" for="inlineRadio2">Female</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" formControlName="gender" type="radio" id="inlineRadio2"
+                  value="Female">
+                <label class="form-check-label" for="inlineRadio2">Other</label>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <button type="submit" (click)="onSubmit()" [disabled]="this.signUpForm.invalid"
+              class="btn login">SignUp</button>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-12 text-end">
+              <span>Already Have an account <a routerLink="../login" class="sign-up">login</a></span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

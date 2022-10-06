@@ -1,0 +1,51 @@
+<div class="container-fluid parent-div" style="background-image: url('assets/login-back.jpg');">
+  <div class="row">
+    <div class="col-md-12 p-2 text-center" style="background-color: black;">
+      <p style="color: white;">Employee Management Portal</p>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12 p-3 d-flex justify-content-center">
+      <div class="form-div p-5">
+        <div class="row mb-3">
+          <div class="col-md-12 text-center">
+            <h3>Login To Portal</h3>
+            <div style="border-top: 3px solid rgb(20,18,40); width: 12%; margin-left: 42%;"></div>
+          </div>
+        </div>
+        <form [formGroup]="login">
+          <div class="form-group mb-3">
+            <label class="mb-2" for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              formControlName="email" placeholder="Enter email">
+          </div>
+          <div class="form-group mb-3">
+            <label class="mb-2" for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+              formControlName="password">
+          </div>
+          <div class="form-group form-check">
+            <div class="row">
+              <div class="col-md-6">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="check">
+                <label class="form-check-label" for="exampleCheck1">Remember me</label>
+              </div>
+              <div class="col-md-6 text-end">
+                <a class="forget">Forget Password</a>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="submit" (click)="onSubmit()" [disabled]="this.login.invalid" class="btn login">Login</button>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-12 text-end">
+              <span>Don't Have an account <a routerLink="../sign-up" class="sign-up">SignUp</a></span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
