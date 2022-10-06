@@ -15,6 +15,8 @@ export class LoginPageComponent implements OnInit {
   userEmail!: string;
   userPassword!: string;
   isChecked!: any;
+  showEyeBtn:boolean = true;
+  isHidden:boolean = true;
 
   constructor(private router: Router, private authService: AuthService, private fb: FormBuilder, private toastr: ToastrService) { }
 
@@ -55,5 +57,9 @@ export class LoginPageComponent implements OnInit {
         localStorage.setItem("password", this.login.value.password);
         localStorage.setItem("check", this.login.value.check);
       }
+  }
+  eyeButtonFunc(){
+    this.showEyeBtn = !this.showEyeBtn;
+    this.isHidden = !this.isHidden;
   }
 }

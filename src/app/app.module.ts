@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxSpinnerModule } from "ngx-spinner";
 
 import { ToastrModule } from 'ngx-toastr';
@@ -13,6 +12,7 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { EmployeesListComponent } from './components/employees-list/employees-list.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     LoginPageComponent,
     EmployeesListComponent,
     SignUpComponent,
+    SearchPipe,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +29,6 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     HttpClientModule,
-    Ng2SearchPipeModule,
     NgxSpinnerModule
   ],
   providers: [],
