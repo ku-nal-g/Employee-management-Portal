@@ -4,6 +4,7 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-employees-list',
@@ -24,13 +25,15 @@ export class EmployeesListComponent implements OnInit {
   insertEmployee!: FormGroup;
   editEmployee!: FormGroup;
 
+  subscription!: Subscription;
+
   constructor(private authService: AuthService, private employeesDataService: EmployeesDataService, private toastr: ToastrService, private fb: FormBuilder, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.spinner.show();
     this.adminEmail = localStorage.getItem('email') || '{}';
     setTimeout(()=>{
-      this.employeesDataService.getEmployeesData().subscribe((res)=>{
+      this.subscription = this.employeesDataService.getEmployeesData().subscribe((res)=>{
         this.employeesList = res;
         this.spinner.hide();
       })
@@ -133,5 +136,11 @@ export class EmployeesListComponent implements OnInit {
   applyFilter(event: Event) {
     this.searchText = (event.target as HTMLInputElement).value;
     console.log(this.searchText);
+  }
+  trackByFn(index: any, item: { id: any; }) {
+    return item.id;
+  }
+  ngonDestroy(){
+    this.subscription.unsubscribe();
   }
 }
