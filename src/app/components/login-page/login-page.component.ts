@@ -2,7 +2,6 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-page',
@@ -18,7 +17,7 @@ export class LoginPageComponent implements OnInit {
   showEyeBtn:boolean = true;
   isHidden:boolean = true;
 
-  constructor(private router: Router, private authService: AuthService, private fb: FormBuilder, private toastr: ToastrService) { }
+  constructor(private router: Router, private authService: AuthService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.login = this.fb.group({
@@ -43,12 +42,8 @@ export class LoginPageComponent implements OnInit {
       this.authService.login(this.login.value).subscribe(
         (_res) => {
           localStorage.setItem('email', this.login.value.email);
-          this.toastr.success('Logged in Successfully', 'Success');
           this.router.navigate(['/employees-list']);
         },
-        (_err: Error) => {
-          this.toastr.error('Oops Enter Correct Details!!!', 'Error')
-        }
       );
     }
        // remember me checked case
